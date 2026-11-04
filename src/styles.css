@@ -416,3 +416,5 @@ section { padding: 110px 0; position: relative; }
   font-size: 0.72rem; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase;
   padding: 6px 12px; border-radius: 999px; border: 1px solid rgba(247, 187, 19, 0.4);
 }
+
+@media (max-width: 640px) { .gallery__skeleton { columns: 2; column-gap: 10px; } .gallery__skeleton span { margin-bottom: 10px; } }

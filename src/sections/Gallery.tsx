@@ -28,6 +28,15 @@ const shortCaption = (c = '') => {
 export default function Gallery() {
   const { ref, inView } = useInView<HTMLDivElement>('400px');
   const [state, setState] = useState<State>({ status: 'loading' });
+  // en celular, 2 columnas de fotos
+  const [mobile, setMobile] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 640px)');
+    const on = () => setMobile(mq.matches);
+    on();
+    mq.addEventListener('change', on);
+    return () => mq.removeEventListener('change', on);
+  }, []);
 
   useEffect(() => {
     if (!inView) return;
@@ -75,9 +84,9 @@ export default function Gallery() {
         {state.status === 'ready' && (
           <Masonry
             items={state.items}
-            columns="auto"
+            columns={mobile ? 2 : 'auto'}
             columnWidth={280}
-            gap={14}
+            gap={mobile ? 10 : 14}
             radius={16}
             animateFrom="bottom"
             hoverEffect="zoom"
