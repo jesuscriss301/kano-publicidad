@@ -2,11 +2,23 @@ import { useEffect, useState } from 'react';
 import { InstagramIcon } from '@hugeicons/core-free-icons';
 import Masonry, { type MasonryItem } from '../components/reactbits/Masonry';
 import { BRAND } from '../config';
+import { GALERIA } from '../galeria';
 import { useInView } from '../lib/useInView';
 import { Icon, SectionHead } from '../components/ui';
 
 type FeedPost = { id: string; img: string; url: string; caption?: string; type?: string };
 type State = { status: 'loading' } | { status: 'ready'; items: MasonryItem[] } | { status: 'error' };
+
+// Fotos fijas de respaldo: se usan si Instagram aún no está conectado o no responde
+const FALLBACK: MasonryItem[] = GALERIA.map(g => ({
+  id: g.id,
+  img: g.img,
+  url: g.url,
+  width: 388,
+  height: 388,
+  title: g.title,
+  alt: `${g.title} — Kano Publicidad, Bucaramanga`
+}));
 
 const shortCaption = (c = '') => {
   const clean = c.replace(/#[\p{L}\p{N}_]+/gu, '').replace(/\s+/g, ' ').trim();
@@ -33,10 +45,10 @@ export default function Gallery() {
             alt: title ? `${title} — Kano Publicidad, Bucaramanga` : 'Aviso hecho por Kano Publicidad en Bucaramanga'
           };
         });
-        setState(items.length ? { status: 'ready', items } : { status: 'error' });
+        setState({ status: 'ready', items: items.length ? items : FALLBACK });
       })
       .catch(err => {
-        if (err?.name !== 'AbortError') setState({ status: 'error' });
+        if (err?.name !== 'AbortError') setState({ status: 'ready', items: FALLBACK });
       });
     return () => ctrl.abort();
   }, [inView]);

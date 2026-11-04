@@ -201,6 +201,8 @@ const server = createServer(async (req, res) => {
   }
   try {
     if (url.pathname === '/api/instagram') {
+      // sin token: lista vacía (la web muestra sus fotos de respaldo) en vez de un error
+      if (!tokenState.token) return json(res, 200, { posts: [], reason: 'sin-token' });
       const { posts } = await getFeed();
       const limit = Math.min(MAX_POSTS, Number(url.searchParams.get('limit')) || 12);
       return json(res, 200, { posts: posts.slice(0, limit) }, { 'cache-control': 'public, max-age=300' });
