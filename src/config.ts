@@ -37,6 +37,7 @@ export const TECH_PARTNER = {
  *  (public/aliados/). Para quitar o agregar una, edita esta lista. */
 export const ALLIES: { name: string; logo: string }[] = [
   { name: 'Droguerías Granados', logo: `${BASE}aliados/granados.webp` },
+  { name: 'Maemi', logo: `${BASE}aliados/maemi.webp` },
   { name: 'Go Dentist', logo: `${BASE}aliados/go-dentist.webp` },
   { name: 'Piccoteo Market', logo: `${BASE}aliados/piccoteo.webp` },
   { name: 'Supermercado Las Marías', logo: `${BASE}aliados/las-marias.webp` },
@@ -52,7 +53,6 @@ export const ALLIES: { name: string; logo: string }[] = [
   { name: 'DieselLab', logo: `${BASE}aliados/diesellab.webp` },
   { name: 'La Premiere Hamburguesería', logo: `${BASE}aliados/la-premiere.webp` },
   { name: 'Otsu Sushi', logo: `${BASE}aliados/otsu.webp` },
-  { name: 'Maemi', logo: `${BASE}aliados/maemi.webp` },
   { name: "Talen's", logo: `${BASE}aliados/talens.webp` },
   { name: 'Geotek', logo: `${BASE}aliados/geotek.webp` }
 ];

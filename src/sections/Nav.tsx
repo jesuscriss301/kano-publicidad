@@ -3,9 +3,9 @@ import { Menu01Icon, Cancel01Icon } from '@hugeicons/core-free-icons';
 import { Icon, Logo, WhatsAppButton } from '../components/ui';
 
 const LINKS = [
+  { href: '#galeria', label: 'Galería' },
   { href: '#servicios', label: 'Servicios' },
   { href: '#aliados', label: 'Aliados' },
-  { href: '#galeria', label: 'Galería' },
   { href: '#preguntas', label: 'Preguntas' },
   { href: '#contacto', label: 'Contacto' }
 ];

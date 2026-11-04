@@ -16,11 +16,11 @@ export default function App() {
       <Nav />
       <main id="contenido">
         <Hero />
+        <Gallery />
         <Showcase />
         <Services />
         <Allies />
         <Process />
-        <Gallery />
         <Faq />
         <Contact />
         <WebPromo />
