@@ -421,8 +421,8 @@ section { padding: 110px 0; position: relative; }
 
 /* ---------- cinta de trabajos destacados (primera sección) ---------- */
 .featured {
-  padding: calc(var(--nav-h) + 28px) 0 50px; overflow: hidden;
-  background: linear-gradient(180deg, var(--navy-deep), var(--ink));
+  padding: var(--nav-h) 0 0; overflow: hidden;
+  background: var(--ink);
 }
 .featured__head { margin-bottom: 26px; }
 .featured__title {
@@ -432,12 +432,11 @@ section { padding: 110px 0; position: relative; }
 .featured__marquee { overflow: hidden; }
 .featured__track { display: flex; gap: 6px; width: max-content; animation: marquee 60s linear infinite; }
 .featured__marquee:hover .featured__track { animation-play-state: paused; }
-.featured__item { flex: none; display: block; height: clamp(300px, 34vw, 460px); aspect-ratio: 4 / 5; }
+.featured__item { flex: none; display: block; height: clamp(240px, 30vw, 420px); }
 .featured__item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: filter var(--dur); }
 .featured__item:hover img { filter: brightness(1.12); }
 @media (max-width: 640px) {
-  .featured { padding-top: calc(var(--nav-h) + 18px); }
-  .featured__item { height: 300px; }
+  .featured__item { height: 240px; }
   .featured__track { animation-duration: 45s; }
   .hero { min-height: auto; padding: 70px 0; }
 }
