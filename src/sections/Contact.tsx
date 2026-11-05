@@ -13,8 +13,8 @@ export function Contact() {
           <p>Envíanos tu idea y te ayudamos a escoger el aviso perfecto para tu espacio y tu presupuesto.</p>
           <WhatsAppButton>Escríbenos por WhatsApp</WhatsAppButton>
           <ul className="contact__info">
-            <li><Icon icon={Location01Icon} size={20} /> Instalamos en {AREA.installCities.join(', ')}</li>
-            <li><Icon icon={DeliveryTruck01Icon} size={20} /> {AREA.shipping}</li>
+            <li><Icon icon={Location01Icon} size={20} /> Sede en {AREA.hq} y área metropolitana</li>
+            <li><Icon icon={DeliveryTruck01Icon} size={20} /> {AREA.coverage}</li>
             <li>
               <Icon icon={InstagramIcon} size={20} />
               <a href={BRAND.instagramUrl} target="_blank" rel="noopener noreferrer">@{BRAND.instagramUser}</a>

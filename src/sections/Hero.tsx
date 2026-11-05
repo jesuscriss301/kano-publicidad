@@ -3,19 +3,16 @@ import { ArrowRight01Icon } from '@hugeicons/core-free-icons';
 import { COLORS } from '../config';
 import { drawToDataUrl, fitFont } from '../lib/textImage';
 import { useReducedMotion } from '../lib/useInView';
-import { Icon, WhatsAppButton } from '../components/ui';
+import { Icon, Logo, WhatsAppButton } from '../components/ui';
 
 // El efecto WebGL se carga aparte para no frenar la primera pintura de la página
 const ElectricLogo = lazy(() => import('../components/reactbits/ElectricLogo'));
 
-const NEON_WORD = 'Neon';
-/** Letra cursiva de trazo fino: el efecto ilumina el contorno, como un tubo de neón doblado */
-const NEON_FONT = (s: number) => `400 ${s}px "Sacramento", cursive`;
-
+/** Logo de Kano en neón cuando no hay WebGL o el usuario pidió reducir movimiento */
 function StaticNeon() {
   return (
     <span className="neon-static" aria-hidden="true">
-      {NEON_WORD}
+      <Logo className="neon-static__logo" />
     </span>
   );
 }
@@ -34,14 +31,28 @@ export default function Hero() {
   }, []);
 
   useEffect(() => {
-    // ElectricLogo traza el contorno de una imagen con transparencia: dibujamos la palabra
-    const font = NEON_FONT;
-    drawToDataUrl(1200, 520, [font(200)], (ctx, w, h) => {
-      fitFont(ctx, NEON_WORD, font, w * 0.9, 380);
+    // ElectricLogo traza el contorno de una imagen con transparencia: dibujamos el logo de Kano
+    const font = (sz: number) => `italic 900 ${sz}px "Montserrat Variable", "Arial Black", sans-serif`;
+    drawToDataUrl(1200, 420, [font(150), font(56)], (ctx, w, h) => {
       ctx.fillStyle = '#fff';
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      ctx.fillText(NEON_WORD, w / 2, h / 2 + 8);
+      // la K (mismas formas del logo, escaladas)
+      ctx.save();
+      ctx.translate(70, 60);
+      ctx.scale(5.4, 5.4);
+      ctx.beginPath();
+      ctx.moveTo(6, 52); ctx.lineTo(22, 8); ctx.lineTo(34, 8); ctx.lineTo(18, 52); ctx.closePath();
+      ctx.moveTo(24, 30); ctx.lineTo(46, 8); ctx.lineTo(60, 8); ctx.lineTo(36, 32); ctx.lineTo(52, 52); ctx.lineTo(38, 52); ctx.closePath();
+      ctx.fill();
+      ctx.restore();
+      // KANO / PUBLICIDAD
+      ctx.textBaseline = 'alphabetic';
+      ctx.font = font(170);
+      ctx.fillText('KANO', 420, 236);
+      const kanoW = ctx.measureText('KANO').width;
+      ctx.letterSpacing = '14px';
+      fitFont(ctx, 'PUBLICIDAD', font, kanoW, 64);
+      ctx.fillText('PUBLICIDAD', 428, 322);
+      void w; void h;
     }).then(setNeonSrc);
   }, []);
 
@@ -58,8 +69,8 @@ export default function Hero() {
             Hacemos que tu negocio <span className="glow">brille</span> de día y de noche.
           </h1>
           <p className="lead">
-            Diseñamos, fabricamos e instalamos avisos luminosos, letras en acrílico y neón flex a la medida. Instalamos
-            en Bucaramanga y toda el área metropolitana, y enviamos a toda Colombia y al exterior.
+            Diseñamos, fabricamos e instalamos avisos luminosos, letras en acrílico y neón flex a la medida. Sede
+            principal en Bucaramanga y su área metropolitana, con instalación y envíos a toda Colombia.
           </p>
           <div className="hero__ctas">
             <WhatsAppButton>Cotiza tu aviso</WhatsAppButton>
@@ -69,7 +80,7 @@ export default function Hero() {
           </div>
         </div>
 
-        <div className="neon-board" role="img" aria-label="Aviso de neón amarillo que dice NEON">
+        <div className="neon-board" role="img" aria-label="Logo de Kano Publicidad en neón amarillo">
           <div className="neon-board__frame" aria-hidden="true" />
           {showElectric ? (
             <Suspense fallback={<StaticNeon />}>
@@ -78,7 +89,7 @@ export default function Hero() {
                 color={COLORS.amberLight}
                 glowColor={COLORS.amber}
                 intensity={1.15}
-                scale={0.65}
+                scale={0.8}
                 arcs={0}
                 flicker={0}
                 crackle={0}

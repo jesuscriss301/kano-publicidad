@@ -20,8 +20,10 @@ export const BRAND = {
 
 /** Zona de servicio (se usa en los textos y en la ficha de negocio para Google) */
 export const AREA = {
-  installCities: ['Bucaramanga', 'Floridablanca', 'Girón', 'Piedecuesta'],
-  shipping: 'Envíos a toda Colombia y al exterior'
+  /** Sede principal: Bucaramanga y su área metropolitana (foco del SEO) */
+  hq: 'Bucaramanga',
+  metroCities: ['Bucaramanga', 'Floridablanca', 'Girón', 'Piedecuesta'],
+  coverage: 'Instalación y envíos a toda Colombia'
 };
 
 /** Aliado tecnológico (aparece destacado en la sección de aliados y en el pie de página) */
@@ -60,12 +62,12 @@ export const ALLIES: { name: string; logo: string }[] = [
 /** Preguntas frecuentes (se muestran en la web y Google las puede leer) */
 export const FAQS = [
   {
-    q: '¿Hacen envíos fuera de Bucaramanga?',
-    a: 'Sí. Fabricamos en Bucaramanga y enviamos a toda Colombia y al exterior, bien empacado y listo para instalar.'
+    q: '¿Dónde queda Kano Publicidad?',
+    a: 'Nuestra sede principal y taller están en Bucaramanga, Santander. Atendemos todo el área metropolitana: Bucaramanga, Floridablanca, Girón y Piedecuesta.'
   },
   {
-    q: '¿En qué ciudades instalan los avisos?',
-    a: 'Instalamos en todo el área metropolitana: Bucaramanga, Floridablanca, Girón y Piedecuesta.'
+    q: '¿Instalan y envían avisos fuera de Bucaramanga?',
+    a: 'Sí. Fabricamos en Bucaramanga e instalamos y enviamos avisos a toda Colombia, bien empacados y listos para instalar.'
   },
   {
     q: '¿Qué tipos de avisos hacen?',

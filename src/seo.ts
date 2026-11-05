@@ -29,7 +29,7 @@ export function buildJsonLd() {
     name: BRAND.name,
     alternateName: 'Kano Publicidad Bucaramanga',
     description:
-      'Fabricación e instalación de avisos luminosos, letras corpóreas en acrílico, neón flex, stickers, vinilos y señalización en Bucaramanga. Envíos a toda Colombia y al exterior.',
+      'Fabricación e instalación de avisos luminosos, letras corpóreas en acrílico, neón flex, stickers, vinilos y señalización. Sede principal en Bucaramanga y su área metropolitana (Floridablanca, Girón, Piedecuesta). Instalación y envíos a toda Colombia.',
     url: `${SITE}/`,
     logo: `${SITE}/logo-kano.png`,
     image: [`${SITE}/og-image.jpg`],
@@ -42,7 +42,7 @@ export function buildJsonLd() {
       addressCountry: 'CO'
     },
     areaServed: [
-      ...AREA.installCities.map(name => ({ '@type': 'City', name })),
+      ...AREA.metroCities.map(name => ({ '@type': 'City', name, containedInPlace: { '@type': 'State', name: 'Santander' } })),
       { '@type': 'AdministrativeArea', name: 'Área Metropolitana de Bucaramanga' },
       { '@type': 'Country', name: 'Colombia' }
     ],

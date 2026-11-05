@@ -24,7 +24,7 @@ export default function Nav() {
   return (
     <header className={`nav ${scrolled || open ? 'nav--solid' : ''}`}>
       <nav className="wrap nav__bar" aria-label="Principal">
-        <a href="#inicio" className="nav__logo" aria-label="Kano Publicidad, ir al inicio">
+        <a href="#destacados" className="nav__logo" aria-label="Kano Publicidad, ir al inicio">
           <Logo />
         </a>
         <ul id="menu" className={`nav__links ${open ? 'is-open' : ''}`}>
