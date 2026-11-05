@@ -174,6 +174,18 @@ async function serveSitemap(req, res) {
     <priority>1.0</priority>
     <image:image><image:loc>${siteUrl(req)}/og-kano.jpg</image:loc></image:image>
   </url>
+  <url>
+    <loc>${siteUrl(req)}/politica-de-privacidad/</loc>
+    <lastmod>${lastmod}</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>${siteUrl(req)}/politica-de-cookies/</loc>
+    <lastmod>${lastmod}</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
 </urlset>
 `);
 }
@@ -188,6 +200,11 @@ async function serveStatic(req, res, pathname) {
   }
   if (file === join(DIST, 'index.html')) return serveIndex(req, res);
   const ext = extname(file);
+  if (ext === '.html') {
+    const html = await readFile(file, 'utf8');
+    res.writeHead(200, { 'content-type': TYPES['.html'], 'cache-control': 'no-cache' });
+    return res.end(html.replaceAll('__SITE_URL__', siteUrl(req)));
+  }
   const cache = file.startsWith(join(DIST, 'assets')) ? 'public, max-age=31536000, immutable' : 'no-cache';
   res.writeHead(200, { 'content-type': TYPES[ext] || 'application/octet-stream', 'cache-control': cache });
   createReadStream(file).pipe(res);

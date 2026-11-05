@@ -33,6 +33,10 @@ export function Footer() {
         <Logo className="footer__logo" />
         <div className="footer__text">
           <p>© {new Date().getFullYear()} {BRAND.name} · Avisos luminosos en Bucaramanga</p>
+          <p className="footer__legal">
+            <a href="/politica-de-privacidad/">Política de privacidad</a>
+            <a href="/politica-de-cookies/">Política de cookies</a>
+          </p>
           <p className="footer__credit">
             Web hecha por{' '}
             <a href={TECH_PARTNER.url} target="_blank" rel="noopener">{TECH_PARTNER.name}</a>
