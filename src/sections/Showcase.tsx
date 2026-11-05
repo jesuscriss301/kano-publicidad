@@ -1,5 +1,6 @@
 import { lazy, Suspense, useEffect, useState } from 'react';
-import { TextFontIcon, StickerIcon, FlashIcon, QrCodeIcon } from '@hugeicons/core-free-icons';
+import { TextFontIcon, StickerIcon, FlashIcon, QrCodeIcon, Building03Icon, WebDesign01Icon, ArrowUpRight01Icon } from '@hugeicons/core-free-icons';
+import { TECH_PARTNER } from '../config';
 import DepthText from '../components/reactbits/DepthText';
 import { COLORS } from '../config';
 import { drawToDataUrl, fitFont, roundRect } from '../lib/textImage';
@@ -190,6 +191,57 @@ export default function Showcase() {
                 Láminas de acrílico para el mostrador con los QR de tus cuentas (Nequi, Bancolombia, Daviplata) o de tus
                 redes sociales. Tus clientes pagan o te siguen en segundos.
               </p>
+            </div>
+          </article>
+
+          <article className="feature">
+            <div className="feature__demo feature__demo--photo">
+              <img
+                src={`${BASE}servicios/fachada-alucobond.webp`}
+                alt="Fachada en Alucobond con aviso iluminado, hecha por Kano Publicidad en Bucaramanga"
+                width={800}
+                height={600}
+                loading="lazy"
+              />
+              <span className="photo-badge">Trabajo real</span>
+            </div>
+            <div className="feature__body">
+              <span className="feature__icon"><Icon icon={Building03Icon} /></span>
+              <h3>Fachadas en Alucobond</h3>
+              <p>
+                Revestimos tu fachada con paneles de aluminio compuesto: moderna, resistente al clima y lista para
+                integrar letras o cajas de luz.
+              </p>
+            </div>
+          </article>
+
+          <article className="feature feature--web">
+            <a
+              className="feature__demo feature__demo--photo"
+              href={TECH_PARTNER.url}
+              target="_blank"
+              rel="noopener"
+              aria-label="Ver EasyPro Digital, diseño web"
+            >
+              <img
+                src={`${BASE}servicios/diseno-web.webp`}
+                alt="Página web de Kano Publicidad diseñada por EasyPro Digital"
+                width={800}
+                height={600}
+                loading="lazy"
+              />
+              <span className="photo-badge">Con EasyPro Digital</span>
+            </a>
+            <div className="feature__body">
+              <span className="feature__icon"><Icon icon={WebDesign01Icon} /></span>
+              <h3>Diseño de páginas web</h3>
+              <p>
+                Completa tu imagen con una página web como esta, hecha por nuestro aliado {TECH_PARTNER.name}: que te
+                encuentren en Google y te escriban por WhatsApp.
+              </p>
+              <a className="link-arrow" href={TECH_PARTNER.url} target="_blank" rel="noopener">
+                Conoce EasyPro Digital <Icon icon={ArrowUpRight01Icon} size={16} />
+              </a>
             </div>
           </article>
         </div>
