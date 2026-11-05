@@ -195,15 +195,15 @@ export default function Showcase() {
           </article>
 
           <article className="feature">
-            <div className="feature__demo feature__demo--photo">
-              <img
-                src={`${BASE}servicios/fachada-alucobond.webp`}
-                alt="Fachada en Alucobond con aviso iluminado, hecha por Kano Publicidad en Bucaramanga"
-                width={800}
-                height={600}
-                loading="lazy"
-              />
-              <span className="photo-badge">Trabajo real</span>
+            <div className="feature__demo feature__demo--photo feature__demo--trio">
+              {[
+                ['alucobond-1', 'Fachada verde en Alucobond con luces empotradas'],
+                ['alucobond-2', 'Fachada en Alucobond con letras doradas iluminadas para V.YA Fashion'],
+                ['alucobond-3', 'Fachada gris en Alucobond con aviso de CASH importaciones']
+              ].map(([f, alt]) => (
+                <img key={f} src={`${BASE}servicios/${f}.webp`} alt={`${alt}, hecha por Kano Publicidad`} width={450} height={600} loading="lazy" />
+              ))}
+              <span className="photo-badge">Trabajos reales</span>
             </div>
             <div className="feature__body">
               <span className="feature__icon"><Icon icon={Building03Icon} /></span>
