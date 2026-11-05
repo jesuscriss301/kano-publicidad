@@ -172,7 +172,7 @@ async function serveSitemap(req, res) {
     <lastmod>${lastmod}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-    <image:image><image:loc>${siteUrl(req)}/og-image.jpg</image:loc></image:image>
+    <image:image><image:loc>${siteUrl(req)}/og-kano.jpg</image:loc></image:image>
   </url>
 </urlset>
 `);

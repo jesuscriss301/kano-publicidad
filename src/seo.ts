@@ -32,7 +32,7 @@ export function buildJsonLd() {
       'Fabricación e instalación de avisos luminosos, letras corpóreas en acrílico, neón flex, stickers, vinilos y señalización. Sede principal en Bucaramanga y su área metropolitana (Floridablanca, Girón, Piedecuesta). Instalación y envíos a toda Colombia.',
     url: `${SITE}/`,
     logo: `${SITE}/logo-kano.png`,
-    image: [`${SITE}/og-image.jpg`],
+    image: [`${SITE}/og-kano.jpg`],
     sameAs: [BRAND.instagramUrl],
     address: {
       '@type': 'PostalAddress',
