@@ -154,9 +154,61 @@ async function serveIndex(req, res) {
   res.end(indexCache.replaceAll('__SITE_URL__', siteUrl(req)));
 }
 
+// Buscadores y asistentes de IA: todos pueden leer la web (así Kano aparece en sus respuestas).
+const AI_BOTS = [
+  'GPTBot', 'OAI-SearchBot', 'ChatGPT-User', // OpenAI / ChatGPT
+  'ClaudeBot', 'Claude-SearchBot', 'Claude-User', // Anthropic / Claude
+  'Google-Extended', 'GoogleOther', // Gemini
+  'PerplexityBot', 'Perplexity-User', // Perplexity
+  'Applebot-Extended', 'Meta-ExternalAgent', 'Amazonbot', 'DuckAssistBot', 'MistralAI-User', 'CCBot'
+];
+
 function serveRobots(req, res) {
+  const site = siteUrl(req);
+  const ai = AI_BOTS.map(b => `User-agent: ${b}`).join('\n');
   res.writeHead(200, { 'content-type': 'text/plain; charset=utf-8' });
-  res.end(`User-agent: *\nAllow: /\nDisallow: /api/\n\nSitemap: ${siteUrl(req)}/sitemap.xml\n`);
+  res.end(`# Kano Publicidad — ${site}
+# Buscadores
+User-agent: *
+Allow: /
+Disallow: /api/
+
+# Asistentes de inteligencia artificial
+${ai}
+Allow: /
+Disallow: /api/
+
+Sitemap: ${site}/sitemap.xml
+`);
+}
+
+/** Resumen de la web para asistentes de IA (estándar llms.txt) */
+function serveLlms(req, res) {
+  const site = siteUrl(req);
+  res.writeHead(200, { 'content-type': 'text/plain; charset=utf-8' });
+  res.end(`# Kano Publicidad
+
+> Empresa de publicidad exterior con sede principal en Bucaramanga, Santander (Colombia). Diseña, fabrica e instala avisos luminosos, letras corpóreas en acrílico, neón flex LED, fachadas en Alucobond, stickers, vinilos, habladores QR en acrílico, señalización, corte láser e impresión digital. Atiende Bucaramanga y su área metropolitana (Floridablanca, Girón, Piedecuesta) con instalación y envíos a toda Colombia.
+
+## Contacto
+- WhatsApp (cotizaciones): https://wa.me/message/RQTACTPZ67ZUP1
+- Instagram: https://www.instagram.com/kano.publicidad/
+- Web: ${site}/
+
+## Servicios
+- Avisos luminosos y cajas de luz
+- Letras corpóreas en acrílico (luz frontal o efecto halo)
+- Avisos de neón flex LED
+- Fachadas en Alucobond
+- Stickers y vinilado
+- Habladores QR en acrílico (pagos y redes sociales)
+- Corte láser, impresión digital, diseño gráfico e instalación
+
+## Páginas
+- [Inicio](${site}/): servicios, trabajos destacados, aliados y preguntas frecuentes
+- [Política de privacidad](${site}/politica-de-privacidad/)
+- [Política de cookies](${site}/politica-de-cookies/)
+`);
 }
 
 async function serveSitemap(req, res) {
@@ -248,6 +300,7 @@ const server = createServer(async (req, res) => {
     if (img) return await serveImage(res, img[1]);
     if (url.pathname === '/health') return json(res, 200, { ok: true });
     if (url.pathname === '/robots.txt') return serveRobots(req, res);
+    if (url.pathname === '/llms.txt') return serveLlms(req, res);
     if (url.pathname === '/sitemap.xml') return await serveSitemap(req, res);
     return await serveStatic(req, res, url.pathname);
   } catch (e) {
