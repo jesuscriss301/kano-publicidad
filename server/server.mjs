@@ -12,6 +12,9 @@
  *  DATA_DIR         Carpeta donde se guarda el token renovado y la caché (por defecto ./data).
  *                   En Dokploy móntala como volumen para que sobreviva a los redeploys.
  *  CACHE_MINUTES    Cada cuánto se consulta Instagram (por defecto 30).
+ *  SITE_URL         Dominio oficial (ej. https://kanopublicidad.com). Cualquier otro dominio que llegue a
+ *                   este servidor (www, demos...) se redirige aquí con un 301 (bueno para el SEO).
+ *  LEGACY_PATH      Ruta vieja a quitar al redirigir (ej. /kano-publicidad de demos.easyprodigital.com).
  *  BASE_PATH        Ruta donde vive la web, ej. /kano-publicidad (debe ser la misma con la que se compiló).
  *                   Funciona tanto si Traefik quita la ruta ("strip path") como si no.
  */
@@ -190,8 +193,25 @@ async function serveStatic(req, res, pathname) {
   createReadStream(file).pipe(res);
 }
 
+const CANONICAL = process.env.SITE_URL ? new URL(process.env.SITE_URL) : null;
+const LEGACY = (process.env.LEGACY_PATH || '').replace(/\/+$/, '');
+
+/** Redirige a SITE_URL si la visita llega por otro dominio (www, demos.easyprodigital.com, ...) */
+function canonicalRedirect(req, res, url) {
+  if (!CANONICAL || url.pathname === '/health') return false;
+  const host = (req.headers['x-forwarded-host'] || req.headers.host || '').split(',')[0].trim().split(':')[0];
+  if (!host || host === CANONICAL.hostname || host === 'localhost' || /^[\d.]+$/.test(host)) return false;
+  let path = url.pathname;
+  if (LEGACY && (path === LEGACY || path.startsWith(`${LEGACY}/`))) path = path.slice(LEGACY.length) || '/';
+  const base = CANONICAL.href.replace(/\/$/, '');
+  res.writeHead(301, { location: `${base}${path}${url.search}` });
+  res.end();
+  return true;
+}
+
 const server = createServer(async (req, res) => {
   const url = new URL(req.url, 'http://x');
+  if (canonicalRedirect(req, res, url)) return;
   if (BASE) {
     if (url.pathname === BASE) {
       res.writeHead(301, { location: `${BASE}/${url.search}` });
