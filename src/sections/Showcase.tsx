@@ -225,9 +225,9 @@ export default function Showcase() {
             >
               <img
                 src={`${BASE}servicios/diseno-web.webp`}
-                alt="Página web de Kano Publicidad diseñada por EasyPro Digital"
-                width={800}
-                height={600}
+                alt="Páginas web diseñadas por EasyPro Digital: Kano Publicidad, Evergreen Yard Co. y Power Provider Services"
+                width={1190}
+                height={509}
                 loading="lazy"
               />
               <span className="photo-badge">Con EasyPro Digital</span>

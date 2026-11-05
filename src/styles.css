@@ -460,6 +460,6 @@ section { padding: 110px 0; position: relative; }
 }
 
 .link-arrow { display: inline-flex; align-items: center; gap: 6px; }
-.feature--web .feature__demo--photo img { object-position: top; }
+.feature--web .feature__demo--photo img { object-fit: contain; background: #00002a; }
 .feature__demo--trio { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; }
 .feature__demo--trio img { position: static; }
